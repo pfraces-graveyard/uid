@@ -1,9 +1,13 @@
-module.exports = function (generate) {
-  var uid = 0;
+var uid = function (map) {
+  var counter = 0;
 
-  return function () {
-    var id = uid;
-    uid++;
-    return generate ? generate(id) : id;
+  var next = function () {
+    var current = map ? map(counter) : counter;
+    counter++;
+    return current;
   };
+  
+  return next;
 };
+
+module.exports = uid;
